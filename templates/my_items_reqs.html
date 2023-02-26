@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Requests{% endblock %}
+{% block body %}
+    {% if not all_items[0][2] and not all_items[1][2] %}
+        <div class="ui basic center aligned segment" style="margin-top: 200px;">
+            <h4 class="ui header">No requests yet. Go to the Home page to find items to request</h4>
+        </div>
+    {% endif %}
+
+    {% for status, color, items in all_items %}
+        {% if items %}
+            <div class="ui basic center aligned segment">
+                <h3 class="ui header">{{status}}</h3>
+            </div>
+
+            <div class="ui five cards" style="margin-left: 15px; margin-right: 15px;">
+                {% for item in items %}
+                    <div class="card">
+                        <div class="ui {{color}} inverted segment"></div>
+                        <a href="{{ url_for('view_item', id=item.item_id) }}">
+                            <img 
+                                class="ui centered image"
+                                src="https://{{item.bucket}}.s3.{{item.region}}.amazonaws.com/{{item.filename}}" 
+                                height="100" width="150"
+                                style="margin-top: 5px; margin-bottom: 5px;"/>
+                        </a>
+                        <div class="extra">
+                            Seller: {{item.user_name}} <br>
+                            Item Name: {{item.item_name}} <br> 
+                            Price: {{item.item_price}} <br>
+                            Status: {{status}} <br>
+                        </div>
+                        <a href="{{ url_for('unreq', id=item.item_id) }}">
+                            <button class="ui fluid button">Remove</button>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

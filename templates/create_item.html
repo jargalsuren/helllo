@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block title %}New Item{% endblock %}
+{% block body %}
+    
+<div class="ui grid" style="margin-left: 10px; margin-right: 10px;">
+    <div class="four wide column wide column"></div>
+    <div class="seven wide column">
+        <form class="ui form" action="#" method = "post" enctype="multipart/form-data">
+            <div class="ui basic center aligned segment">
+                <a href="{{url_for('my_items_post')}}">
+                    <button class="ui button" type="button">Cancel</button>
+                </a>
+                <button class="ui primary button" type="submit">Post Item</button>
+            </div>
+
+            {% if no_name %}<div class="field error">{% else %}<div class="field">{% endif %}
+                <label>Item Name*</label>
+                <input type="text" name="name" placeholder="E.g., Camera" value="{{prefilled['name']}}">
+            </div>
+
+            {% if no_price %}<div class="field error">{% else %}<div class="field">{% endif %}
+                <label>Estimated Price*</label>
+                <input type="text" name="price" placeholder="E.g., $50 or 2000 pesos" value="{{prefilled['price']}}">
+            </div>
+
+            <div class="field">
+                <label>Description</label>
+                <textarea rows="5" name="description" placeholder="Describe item">{{prefilled['description']}}</textarea>
+            </div>
+
+
+            <h5 class="ui header">Category*</h5>
+            {% if no_category %}<div class="field error">{% else %}<div class="field">{% endif %}
+                <div class="column">
+                    <div class="ui radio checkbox">
+                        <input type="radio" id="kitchen" name="category" value="Kitchen" {% if prefilled['category'] == "Kitchen" %} checked {% endif %}>
+                        <label>Kitchen</label>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui radio checkbox">
+                        <input type="radio" id="furniture" name="category" value="Furniture" {% if prefilled['category'] == "Furniture" %} checked {% endif %}>
+                        <label>Furniture</label>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui radio checkbox">
+                        <input type="radio" id="device" name="category" value="Device" {% if prefilled['category'] == "Device" %} checked {% endif %}>
+                        <label>Device</label>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui radio checkbox">
+                        <input type="radio" id="clothing" name="category" value="Clothing" {% if prefilled['category'] == "Clothing" %} checked {% endif %}>
+                        <label>Clothing</label>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui radio checkbox">
+                        <input type="radio" id="books" name="category" value="Books" {% if prefilled['category'] == "Books" %} checked {% endif %}>
+                        <label>Books</label>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui radio checkbox">
+                        <input type="radio" id="other" name="category" value="Other" {% if prefilled['category'] == "Other" %} checked {% endif %}>
+                        <label>Other</label>
+                    </div>
+                </div>
+            </div>
+
+            <h5 class="ui header">Item Location*</h5>
+            {% if no_city %}<div class="field error">{% else %}<div class="field">{% endif %}
+                <div class="column">
+                    <div class="ui radio checkbox">
+                        <input type="radio" id="sf" name="city" value="San Francisco" {% if prefilled["city"] == "San Francisco" %} checked {% endif %}>
+                        <label>San Francisco</label>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui radio checkbox">
+                        <input type="radio" id="seoul" name="city" value="Seoul" {% if prefilled["city"] == "Seoul" %} checked {% endif %}>
+                        <label>Seoul</label>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui radio checkbox">
+                        <input type="radio" id="berlin" name="city" value="Berlin" {% if prefilled["city"] == "Berlin" %} checked {% endif %}>
+                        <label>Berlin</label>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui radio checkbox">
+                        <input type="radio" id="london" name="city" value="London" {% if prefilled["city"] == "London" %} checked {% endif %}>
+                        <label>London</label>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui radio checkbox">
+                        <input type="radio" id="ba" name="city" value="Buenos Aires" {% if prefilled["city"] == "Buenos Aires" %} checked {% endif %}>
+                        <label>Buenos Aires</label>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui radio checkbox">
+                        <input type="radio" id="taipei" name="city" value="Taipei" {% if prefilled["city"] == "Taipei" %} checked {% endif %}>
+                        <label>Taipei</label>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui radio checkbox">
+                        <input type="radio" id="hyderabad" name="city" value="Hyderabad" {% if prefilled["city"] == "Hyderabad" %} checked {% endif %}>
+                        <label>Hyderabad</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Shelf Life</label>
+                <input type="text" name="shelflife" placeholder = "E.g., 5 weeks" value="{{prefilled['shelflife']}}">
+            </div>
+
+            <h5 class="ui header">New or Used*</h5>
+            {% if no_state %}<div class="field error">{% else %}<div class="field">{% endif %}
+                <div class="column">
+                    <div class="ui radio checkbox">
+                        <input type="radio" id="new" name="state" value="New" {% if prefilled["state"] == "New" %} checked {% endif %}>
+                        <label>New</label>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui radio checkbox">
+                        <input type="radio" id="used" name="state" value="Used" {% if prefilled["state"] == "Used" %} checked {% endif %}>
+                        <label>Used</label>
+                    </div>
+                </div>
+            </div>
+
+            {% if no_image %}<div class="field error">{% else %}<div class="field">{% endif %}
+                <label>Upload item Picture*</label>
+                <input type="file" name="item_pic" value="Choose file">
+            </div>
+
+            <div class="ui basic center aligned segment">
+                <a href="{{url_for('my_items_post')}}">
+                    <button class="ui button" type="button">Cancel</button>
+                </a>
+                <button class="ui primary button" type="submit">Post Item</button>
+            </div>
+        </form>
+    </div> 
+</div>
+{% endblock %}
